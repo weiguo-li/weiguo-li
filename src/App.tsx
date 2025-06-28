@@ -10,6 +10,7 @@ import Contact from './components/Contact'
 import Navigation from './components/Navigation'
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import React from 'react'
 import './App.css'
 
 function App() {
