@@ -15,12 +15,16 @@ import './App.css'
 
 function App() {
   useEffect(() => {
-    AOS.init({
-      duration: 1000,
-      easing: 'ease-in-out',
-      once: false,
-      mirror: true,
-    })
+    try {
+      AOS.init({
+        duration: 1000,
+        easing: 'ease-in-out',
+        once: false,
+        mirror: true,
+      })
+    } catch (error) {
+      console.error('AOS initialization failed:', error)
+    }
   }, [])
 
   return (

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useState } from 'react'
-import Globe3D, { travelDestinations } from './Globe3D'
+// import Globe3D from './Globe3D'
+
+import { travelDestinations } from './Globe3D'
 
 
 const Travel = () => {
@@ -58,7 +60,7 @@ const Travel = () => {
           backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/backgrounds/stars-bg.jpg')`
         }}
       />
-      
+
       <motion.div
         ref={ref}
         className="relative z-10 max-w-7xl mx-auto"
@@ -87,13 +89,13 @@ const Travel = () => {
           >
             <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
               <h3 className="text-xl font-bold text-white mb-4 text-center">Interactive 3D Globe</h3>
-              
-              <Globe3D
+
+              {/* <Globe3D
                 selectedDestination={selectedDestination}
                 onDestinationClick={handleDestinationClick}
                 highlightFilter={highlightFilter}
-              />
-              
+              /> */}
+
               {/* Controls */}
               <div className="flex justify-center gap-4 mt-6">
                 {['all', 'visited', 'planned'].map((filter) => (
@@ -112,7 +114,7 @@ const Travel = () => {
                   </motion.button>
                 ))}
               </div>
-              
+
               <p className="text-gray-400 text-sm text-center mt-4">
                 Rotate the globe, zoom in/out, and click markers to explore destinations
               </p>
