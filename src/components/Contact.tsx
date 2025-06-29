@@ -43,16 +43,16 @@ const Contact = () => {
     {
       icon: '📧',
       title: 'Email',
-      value: 'weiguo.li@example.com',
+      value: 'hanseley@gmail.com',
       description: 'Send me an email anytime',
-      action: 'mailto:weiguo.li@example.com'
+      action: 'mailto:hanseley@gmail.com'
     },
     {
       icon: '💬',
       title: 'LinkedIn',
-      value: 'linkedin.com/in/weiguo-li',
+      value: 'linkedin.com/in/weiguolee',
       description: 'Let\'s connect professionally',
-      action: 'https://linkedin.com/in/weiguo-li'
+      action: 'https://www.linkedin.com/in/weiguolee/'
     },
     {
       icon: '💻',
@@ -64,7 +64,7 @@ const Contact = () => {
     {
       icon: '📱',
       title: 'Phone',
-      value: '+1 (555) 123-4567',
+      value: '+49 015560692560',
       description: 'Call me during business hours',
       action: 'tel:+15551234567'
     }
