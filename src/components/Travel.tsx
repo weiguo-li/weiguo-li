@@ -1,20 +1,7 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import { useState } from 'react'
-
-// Temporary travel destinations data
-const travelDestinations = [
-  { name: 'Tokyo, Japan', lat: 35.6762, lng: 139.6503, visited: true, color: '#00ff88', description: 'Amazing culture and technology hub' },
-  { name: 'New York, USA', lat: 40.7128, lng: -74.0060, visited: true, color: '#0088ff', description: 'The city that never sleeps' },
-  { name: 'Paris, France', lat: 48.8566, lng: 2.3522, visited: true, color: '#ff8800', description: 'City of lights and romance' },
-  { name: 'London, UK', lat: 51.5074, lng: -0.1278, visited: true, color: '#ff0088', description: 'Historic and modern blend' },
-  { name: 'Singapore', lat: 1.3521, lng: 103.8198, visited: true, color: '#8800ff', description: 'Garden city of Asia' },
-  { name: 'Sydney, Australia', lat: -33.8688, lng: 151.2093, visited: true, color: '#00ffff', description: 'Beautiful harbor city' },
-  { name: 'Dubai, UAE', lat: 25.2048, lng: 55.2708, visited: true, color: '#ffff00', description: 'Modern architectural marvel' },
-  { name: 'Barcelona, Spain', lat: 41.3851, lng: 2.1734, visited: false, color: '#ff4444', description: 'Next destination - Art and architecture' },
-  { name: 'Reykjavik, Iceland', lat: 64.1466, lng: -21.9426, visited: false, color: '#44ff44', description: 'Northern lights adventure' },
-  { name: 'Bali, Indonesia', lat: -8.3405, lng: 115.0920, visited: false, color: '#4444ff', description: 'Tropical paradise getaway' },
-]
+import Globe3D, { travelDestinations } from './Globe3D'
 
 
 const Travel = () => {
@@ -101,16 +88,12 @@ const Travel = () => {
             <div className="bg-gray-900/50 backdrop-blur-sm rounded-2xl p-6 border border-gray-700/50">
               <h3 className="text-xl font-bold text-white mb-4 text-center">Interactive 3D Globe</h3>
 
-              {/* Globe3D placeholder - temporarily disabled */}
-              <div className="w-full h-96 bg-gradient-to-br from-blue-900 to-black rounded-xl flex items-center justify-center border border-gray-700">
-                <div className="text-center">
-                  <div className="w-32 h-32 mx-auto mb-4 bg-blue-600 rounded-full flex items-center justify-center">
-                    <span className="text-4xl">🌍</span>
-                  </div>
-                  <p className="text-white text-lg">Interactive 3D Globe</p>
-                  <p className="text-gray-400 text-sm">Coming Soon</p>
-                </div>
-              </div>
+              {/* Interactive 3D Globe */}
+              <Globe3D 
+                selectedDestination={selectedDestination}
+                onDestinationClick={handleDestinationClick}
+                highlightFilter={highlightFilter}
+              />
 
               {/* Controls */}
               <div className="flex justify-center gap-4 mt-6">

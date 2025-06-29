@@ -15,11 +15,11 @@ const Skills = () => {
       title: 'AI',
       icon: '🎨',
       skills: [
-        { name: 'Pytorch', level: 90, color: 'from-blue-400 to-blue-600' },
+        { name: 'PyTorch', level: 90, color: 'from-blue-400 to-blue-600' },
         { name: 'Python', level: 95, color: 'from-blue-500 to-blue-700' },
-        { name: 'AI agent', level: 85, color: 'from-gray-600 to-gray-800' },
-        { name: 'C++ ', level: 75, color: 'from-cyan-400 to-cyan-600' },
-        { name: 'AI agent', level: 60, color: 'from-green-400 to-green-600' },
+        { name: 'AI Agents', level: 85, color: 'from-gray-600 to-gray-800' },
+        { name: 'C++', level: 75, color: 'from-cyan-400 to-cyan-600' },
+        { name: 'Machine Learning', level: 80, color: 'from-green-400 to-green-600' },
         { name: 'LLMs', level: 85, color: 'from-yellow-400 to-yellow-600' },
       ]
     }
