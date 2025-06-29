@@ -73,7 +73,7 @@ const About = () => {
                 transition={{ duration: 0.3 }}
               >
                 <img
-                  src="/images/portraits/professional-portrait.jpg"
+                  src="/images/portraits/myself.jpeg"
                   alt="Weiguo Li"
                   className="w-full h-full object-cover rounded-2xl shadow-2xl"
                 />
