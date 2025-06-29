@@ -12,53 +12,53 @@ const Skills = () => {
 
   const skillCategories = {
     frontend: {
-      title: 'Frontend Development',
+      title: 'AI',
       icon: '🎨',
       skills: [
-        { name: 'React', level: 95, color: 'from-blue-400 to-blue-600' },
-        { name: 'TypeScript', level: 90, color: 'from-blue-500 to-blue-700' },
-        { name: 'Next.js', level: 85, color: 'from-gray-600 to-gray-800' },
-        { name: 'Tailwind CSS', level: 92, color: 'from-cyan-400 to-cyan-600' },
-        { name: 'Vue.js', level: 80, color: 'from-green-400 to-green-600' },
-        { name: 'Three.js', level: 75, color: 'from-yellow-400 to-yellow-600' },
+        { name: 'Pytorch', level: 90, color: 'from-blue-400 to-blue-600' },
+        { name: 'Python', level: 95, color: 'from-blue-500 to-blue-700' },
+        { name: 'AI agent', level: 85, color: 'from-gray-600 to-gray-800' },
+        { name: 'C++ ', level: 75, color: 'from-cyan-400 to-cyan-600' },
+        { name: 'AI agent', level: 60, color: 'from-green-400 to-green-600' },
+        { name: 'LLMs', level: 85, color: 'from-yellow-400 to-yellow-600' },
       ]
     },
-    backend: {
-      title: 'Backend Development',
-      icon: '⚙️',
-      skills: [
-        { name: 'Node.js', level: 90, color: 'from-green-500 to-green-700' },
-        { name: 'Python', level: 88, color: 'from-yellow-500 to-yellow-700' },
-        { name: 'PostgreSQL', level: 85, color: 'from-blue-600 to-blue-800' },
-        { name: 'MongoDB', level: 82, color: 'from-green-600 to-green-800' },
-        { name: 'Redis', level: 78, color: 'from-red-500 to-red-700' },
-        { name: 'GraphQL', level: 80, color: 'from-pink-500 to-pink-700' },
-      ]
-    },
-    devops: {
-      title: 'DevOps & Cloud',
-      icon: '☁️',
-      skills: [
-        { name: 'AWS', level: 85, color: 'from-orange-400 to-orange-600' },
-        { name: 'Docker', level: 88, color: 'from-blue-500 to-blue-700' },
-        { name: 'Kubernetes', level: 75, color: 'from-blue-600 to-blue-800' },
-        { name: 'CI/CD', level: 82, color: 'from-purple-500 to-purple-700' },
-        { name: 'Terraform', level: 70, color: 'from-purple-600 to-purple-800' },
-        { name: 'Monitoring', level: 80, color: 'from-green-500 to-green-700' },
-      ]
-    },
-    design: {
-      title: 'Design & UX',
-      icon: '🎯',
-      skills: [
-        { name: 'Figma', level: 88, color: 'from-purple-400 to-purple-600' },
-        { name: 'Adobe XD', level: 85, color: 'from-pink-500 to-pink-700' },
-        { name: 'UI/UX Design', level: 90, color: 'from-indigo-500 to-indigo-700' },
-        { name: 'Prototyping', level: 87, color: 'from-cyan-500 to-cyan-700' },
-        { name: 'User Research', level: 80, color: 'from-teal-500 to-teal-700' },
-        { name: 'Design Systems', level: 85, color: 'from-blue-500 to-blue-700' },
-      ]
-    }
+    // backend: {
+    //   title: 'Full stack  Development',
+    //   icon: '⚙️',
+    //   skills: [
+    //     { name: 'Node.js', level: 90, color: 'from-green-500 to-green-700' },
+    //     { name: 'Python', level: 88, color: 'from-yellow-500 to-yellow-700' },
+    //     { name: 'PostgreSQL', level: 85, color: 'from-blue-600 to-blue-800' },
+    //     { name: 'MongoDB', level: 82, color: 'from-green-600 to-green-800' },
+    //     { name: 'Redis', level: 78, color: 'from-red-500 to-red-700' },
+    //     { name: 'GraphQL', level: 80, color: 'from-pink-500 to-pink-700' },
+    //   ]
+    // },
+    // devops: {
+    //   title: 'DevOps & Cloud',
+    //   icon: '☁️',
+    //   skills: [
+    //     { name: 'AWS', level: 85, color: 'from-orange-400 to-orange-600' },
+    //     { name: 'Docker', level: 88, color: 'from-blue-500 to-blue-700' },
+    //     { name: 'Kubernetes', level: 75, color: 'from-blue-600 to-blue-800' },
+    //     { name: 'CI/CD', level: 82, color: 'from-purple-500 to-purple-700' },
+    //     { name: 'Terraform', level: 70, color: 'from-purple-600 to-purple-800' },
+    //     { name: 'Monitoring', level: 80, color: 'from-green-500 to-green-700' },
+    //   ]
+    // },
+    // design: {
+    //   title: 'Design & UX',
+    //   icon: '🎯',
+    //   skills: [
+    //     { name: 'Figma', level: 88, color: 'from-purple-400 to-purple-600' },
+    //     { name: 'Adobe XD', level: 85, color: 'from-pink-500 to-pink-700' },
+    //     { name: 'UI/UX Design', level: 90, color: 'from-indigo-500 to-indigo-700' },
+    //     { name: 'Prototyping', level: 87, color: 'from-cyan-500 to-cyan-700' },
+    //     { name: 'User Research', level: 80, color: 'from-teal-500 to-teal-700' },
+    //     { name: 'Design Systems', level: 85, color: 'from-blue-500 to-blue-700' },
+    //   ]
+    // }
   }
 
   const containerVariants = {

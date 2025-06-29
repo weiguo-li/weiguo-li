@@ -31,10 +31,10 @@ const About = () => {
   }
 
   const stats = [
-    { number: "5+", label: "Years Experience" },
-    { number: "50+", label: "Projects Completed" },
-    { number: "15+", label: "Countries Visited" },
-    { number: "100%", label: "Client Satisfaction" },
+    { number: "Unlimted", label: "Years Experience(how powerful AI is, how poerful I am)" },
+    { number: "10+", label: "Projects Completed" },
+    { number: "5+", label: "Countries Visited" },
+    { number: "100%", label: "Passion for AI" },
   ]
 
   return (
