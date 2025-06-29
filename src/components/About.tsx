@@ -118,21 +118,18 @@ const About = () => {
               
               <div className="space-y-4 text-lg text-gray-300 leading-relaxed">
                 <p>
-                  Hello! I'm Weiguo Li, a passionate full-stack developer with a love for creating 
-                  innovative digital solutions. My journey in technology began over 5 years ago, 
-                  and I've been fascinated by the endless possibilities of code ever since.
+                  Hello! I'm Weiguo Li, a passionate developer with a love for creating innovative digital solutions. My journey in technology is evolving with Artificial Intelligence, and I'm excited to explore the endless possibilities of LLMs. This webiste is create by AI Agent and I've been fascinated by the endless possibilities of code with AI assistant ever since.
                 </p>
                 
                 <p>
-                  When I'm not coding, you'll find me exploring new destinations around the world. 
+                  When I'm not coding, you'll find me exploring new destinations around the world or playing basketball or reading the lastest papers. 
                   I believe that travel broadens the mind and brings fresh perspectives to my work. 
-                  This wanderlust has taken me to over 15 countries, each adding a unique flavor 
+                  This wanderlust has taken me to over 5 countries, each adding a unique flavor 
                   to my creative process.
                 </p>
                 
                 <p>
-                  I specialize in modern web technologies, creating seamless user experiences 
-                  that combine functionality with beautiful design. My goal is to bridge the 
+                  I specialize in leveraging AI tools to build dynamic and engaging web applications. What is more exciting is that I am using AI to solve problems and create solutions related to any problmes in real life. My goal is to bridge the 
                   gap between complex technical solutions and intuitive user interfaces.
                 </p>
               </div>
@@ -143,7 +140,7 @@ const About = () => {
               className="flex flex-wrap gap-3"
               variants={itemVariants}
             >
-              {['React', 'TypeScript', 'Node.js', 'Python', 'AWS', 'Docker'].map((skill, index) => (
+              {['MCP', 'Pytorch', 'LangGraph', 'Python', 'Git', 'Docker'].map((skill, index) => (
                 <motion.span
                   key={skill}
                   className="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-400/30 rounded-full text-blue-300 text-sm font-medium"
