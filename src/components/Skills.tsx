@@ -8,10 +8,10 @@ const Skills = () => {
     triggerOnce: false,
   })
 
-  const [activeCategory, setActiveCategory] = useState('frontend')
+  const [activeCategory, setActiveCategory] = useState('ai')
 
   const skillCategories = {
-    frontend: {
+    ai: {
       title: 'AI',
       icon: '🎨',
       skills: [
@@ -22,7 +22,7 @@ const Skills = () => {
         { name: 'AI agent', level: 60, color: 'from-green-400 to-green-600' },
         { name: 'LLMs', level: 85, color: 'from-yellow-400 to-yellow-600' },
       ]
-    },
+    }
     // backend: {
     //   title: 'Full stack  Development',
     //   icon: '⚙️',
