@@ -144,119 +144,245 @@ const EarthGlobe = ({ selectedDestination, onDestinationClick, highlightFilter }
   const globeRef = useRef<THREE.Mesh>(null)
   const atmosphereRef = useRef<THREE.Mesh>(null)
   
-  // Create realistic Earth texture
+  // Create highly realistic Earth texture with accurate geography
   const earthTexture = useMemo(() => {
     const canvas = document.createElement('canvas')
-    canvas.width = 2048
-    canvas.height = 1024
+    canvas.width = 4096
+    canvas.height = 2048
     const ctx = canvas.getContext('2d')!
     
-    // Ocean background
-    ctx.fillStyle = '#1e40af' // Deep blue for oceans
-    ctx.fillRect(0, 0, 2048, 1024)
-    
-    // Add oceanic depth variation
-    const oceanGradient = ctx.createRadialGradient(1024, 512, 100, 1024, 512, 800)
-    oceanGradient.addColorStop(0, '#3b82f6')
-    oceanGradient.addColorStop(1, '#1e3a8a')
+    // Deep ocean base
+    const oceanGradient = ctx.createLinearGradient(0, 0, 0, 2048)
+    oceanGradient.addColorStop(0, '#1e3a8a') // Deep ocean blue
+    oceanGradient.addColorStop(0.5, '#1e40af') // Medium ocean blue
+    oceanGradient.addColorStop(1, '#1e3a8a') // Deep ocean blue
     ctx.fillStyle = oceanGradient
-    ctx.fillRect(0, 0, 2048, 1024)
+    ctx.fillRect(0, 0, 4096, 2048)
     
-    // Continental masses with realistic positioning
-    const continents = [
-      // North America
-      { x: 300, y: 300, width: 400, height: 300, color: '#22c55e' },
-      // South America  
-      { x: 400, y: 600, width: 200, height: 350, color: '#16a34a' },
-      // Europe
-      { x: 900, y: 200, width: 200, height: 150, color: '#15803d' },
-      // Africa
-      { x: 950, y: 350, width: 250, height: 400, color: '#dcfce7' },
-      // Asia
-      { x: 1100, y: 150, width: 600, height: 400, color: '#22c55e' },
-      // Australia
-      { x: 1500, y: 700, width: 300, height: 150, color: '#16a34a' },
-      // Antarctica
-      { x: 200, y: 900, width: 1600, height: 100, color: '#f0f9ff' }
-    ]
-    
-    continents.forEach(continent => {
-      // Create organic continent shapes
-      ctx.fillStyle = continent.color
-      ctx.beginPath()
+    // Accurate continental shapes based on real geography
+    const drawContinent = (points: number[][], color: string, shadowColor?: string) => {
+      if (points.length < 3) return
       
-      // Create irregular continent boundaries
-      const points = 20
-      for (let i = 0; i <= points; i++) {
-        const angle = (i / points) * Math.PI * 2
-        const radiusX = continent.width / 2 * (0.7 + Math.random() * 0.6)
-        const radiusY = continent.height / 2 * (0.7 + Math.random() * 0.6)
-        const x = continent.x + continent.width / 2 + Math.cos(angle) * radiusX
-        const y = continent.y + continent.height / 2 + Math.sin(angle) * radiusY
-        
-        if (i === 0) {
-          ctx.moveTo(x, y)
-        } else {
-          ctx.lineTo(x, y)
+      // Draw shadow/depth first
+      if (shadowColor) {
+        ctx.fillStyle = shadowColor
+        ctx.beginPath()
+        ctx.moveTo(points[0][0] + 3, points[0][1] + 3)
+        for (let i = 1; i < points.length; i++) {
+          ctx.lineTo(points[i][0] + 3, points[i][1] + 3)
         }
+        ctx.closePath()
+        ctx.fill()
+      }
+      
+      ctx.fillStyle = color
+      ctx.beginPath()
+      ctx.moveTo(points[0][0], points[0][1])
+      for (let i = 1; i < points.length; i++) {
+        ctx.lineTo(points[i][0], points[i][1])
       }
       ctx.closePath()
       ctx.fill()
-      
-      // Add mountain ranges and terrain variation
-      ctx.fillStyle = '#166534' // Darker green for mountains
-      for (let j = 0; j < 15; j++) {
-        const mx = continent.x + Math.random() * continent.width
-        const my = continent.y + Math.random() * continent.height
-        const mradius = Math.random() * 30 + 10
-        ctx.beginPath()
-        ctx.arc(mx, my, mradius, 0, Math.PI * 2)
-        ctx.fill()
-      }
-    })
-    
-    // Add island chains and archipelagos
-    const islands = [
-      // Caribbean
-      { x: 500, y: 450, count: 15 },
-      // Mediterranean
-      { x: 950, y: 350, count: 10 },
-      // Pacific Islands
-      { x: 1800, y: 500, count: 25 },
-      // Indonesia
-      { x: 1400, y: 550, count: 20 }
-    ]
-    
-    islands.forEach(group => {
-      ctx.fillStyle = '#22c55e'
-      for (let i = 0; i < group.count; i++) {
-        const ix = group.x + (Math.random() - 0.5) * 200
-        const iy = group.y + (Math.random() - 0.5) * 100
-        const iradius = Math.random() * 8 + 3
-        ctx.beginPath()
-        ctx.arc(ix, iy, iradius, 0, Math.PI * 2)
-        ctx.fill()
-      }
-    })
-    
-    // Add cloud formations
-    ctx.globalAlpha = 0.3
-    ctx.fillStyle = '#ffffff'
-    for (let i = 0; i < 50; i++) {
-      const cx = Math.random() * 2048
-      const cy = Math.random() * 1024
-      const cwidth = Math.random() * 150 + 50
-      const cheight = Math.random() * 80 + 30
-      
-      ctx.beginPath()
-      ctx.ellipse(cx, cy, cwidth, cheight, Math.random() * Math.PI * 2, 0, Math.PI * 2)
-      ctx.fill()
     }
+    
+    // North America (more accurate shape)
+    const northAmerica = [
+      [150, 200], [300, 180], [450, 200], [600, 250], [650, 300],
+      [620, 400], [580, 500], [550, 600], [500, 650], [400, 680],
+      [300, 650], [200, 600], [150, 500], [120, 400], [130, 300]
+    ]
+    drawContinent(northAmerica, '#228B22', '#1a5f1a')
+    
+    // South America (distinctive shape)
+    const southAmerica = [
+      [400, 700], [500, 680], [550, 750], [580, 850], [570, 950],
+      [550, 1100], [520, 1200], [480, 1300], [440, 1350], [400, 1380],
+      [360, 1350], [340, 1250], [350, 1150], [370, 1050], [380, 950],
+      [390, 850], [395, 750]
+    ]
+    drawContinent(southAmerica, '#32CD32', '#228B22')
+    
+    // Europe (complex coastline)
+    const europe = [
+      [1000, 180], [1100, 160], [1200, 180], [1250, 220], [1230, 280],
+      [1200, 320], [1150, 350], [1100, 370], [1050, 380], [1000, 370],
+      [950, 350], [920, 320], [930, 280], [950, 240], [980, 200]
+    ]
+    drawContinent(europe, '#9ACD32', '#7BA428')
+    
+    // Africa (recognizable shape)
+    const africa = [
+      [1050, 400], [1150, 380], [1250, 420], [1300, 500], [1320, 600],
+      [1330, 700], [1340, 800], [1350, 900], [1360, 1000], [1350, 1100],
+      [1320, 1200], [1280, 1250], [1200, 1280], [1100, 1290], [1000, 1280],
+      [950, 1250], [920, 1200], [900, 1100], [910, 1000], [930, 900],
+      [950, 800], [970, 700], [990, 600], [1010, 500], [1030, 450]
+    ]
+    drawContinent(africa, '#DAA520', '#B8860B')
+    
+    // Asia (massive continent)
+    const asia = [
+      [1200, 100], [1400, 80], [1600, 100], [1800, 120], [2000, 150],
+      [2200, 180], [2400, 220], [2500, 300], [2480, 400], [2450, 500],
+      [2400, 600], [2300, 700], [2200, 750], [2000, 780], [1800, 790],
+      [1600, 780], [1400, 750], [1300, 700], [1250, 600], [1200, 500],
+      [1180, 400], [1170, 300], [1180, 200], [1190, 150]
+    ]
+    drawContinent(asia, '#228B22', '#1a5f1a')
+    
+    // Australia
+    const australia = [
+      [2200, 1400], [2400, 1380], [2500, 1420], [2520, 1480], [2500, 1520],
+      [2450, 1540], [2350, 1550], [2250, 1540], [2200, 1520], [2180, 1480],
+      [2190, 1440]
+    ]
+    drawContinent(australia, '#CD853F', '#A0522D')
+    
+    // Antarctica
+    const antarctica = [
+      [0, 1700], [4096, 1700], [4096, 2048], [0, 2048]
+    ]
+    drawContinent(antarctica, '#F0F8FF', '#E6E6FA')
+    
+    // Add realistic details
+    
+    // Mountain ranges
+    const addMountains = (basePoints: number[][], color: string) => {
+      ctx.fillStyle = color
+      basePoints.forEach(([x, y]) => {
+        for (let i = 0; i < 8; i++) {
+          const mx = x + (Math.random() - 0.5) * 100
+          const my = y + (Math.random() - 0.5) * 50
+          const radius = Math.random() * 15 + 5
+          ctx.beginPath()
+          ctx.arc(mx, my, radius, 0, Math.PI * 2)
+          ctx.fill()
+        }
+      })
+    }
+    
+    // Add mountain ranges
+    addMountains([[400, 400], [500, 350], [600, 300]], '#006400') // Rocky Mountains
+    addMountains([[450, 800], [500, 850]], '#006400') // Andes
+    addMountains([[1600, 300], [1700, 350], [1800, 400]], '#006400') // Himalayas
+    
+    // Major rivers (thin blue lines)
+    ctx.strokeStyle = '#4169E1'
+    ctx.lineWidth = 3
+    
+    // Amazon River
+    ctx.beginPath()
+    ctx.moveTo(350, 800)
+    ctx.quadraticCurveTo(450, 820, 550, 810)
+    ctx.stroke()
+    
+    // Nile River
+    ctx.beginPath()
+    ctx.moveTo(1150, 600)
+    ctx.lineTo(1180, 800)
+    ctx.stroke()
+    
+    // Mississippi River
+    ctx.beginPath()
+    ctx.moveTo(450, 300)
+    ctx.quadraticCurveTo(480, 400, 500, 600)
+    ctx.stroke()
+    
+    // Major deserts (sandy color)
+    ctx.fillStyle = '#F4A460'
+    
+    // Sahara Desert
+    ctx.fillRect(950, 500, 400, 200)
+    
+    // Gobi Desert
+    ctx.fillRect(1800, 400, 200, 100)
+    
+    // Great lakes and major water bodies
+    ctx.fillStyle = '#4682B4'
+    
+    // Great Lakes
+    ctx.beginPath()
+    ctx.arc(500, 350, 15, 0, Math.PI * 2)
+    ctx.fill()
+    ctx.beginPath()
+    ctx.arc(520, 340, 12, 0, Math.PI * 2)
+    ctx.fill()
+    
+    // Caspian Sea
+    ctx.beginPath()
+    ctx.arc(1400, 450, 25, 0, Math.PI * 2)
+    ctx.fill()
+    
+    // Black Sea
+    ctx.beginPath()
+    ctx.arc(1200, 400, 15, 0, Math.PI * 2)
+    ctx.fill()
+    
+    // Mediterranean Sea
+    ctx.fillRect(1000, 420, 300, 50)
+    
+    // Add archipelagos and island chains
+    const addIslands = (centerX: number, centerY: number, count: number, spread: number) => {
+      ctx.fillStyle = '#228B22'
+      for (let i = 0; i < count; i++) {
+        const x = centerX + (Math.random() - 0.5) * spread
+        const y = centerY + (Math.random() - 0.5) * spread * 0.5
+        const radius = Math.random() * 8 + 3
+        ctx.beginPath()
+        ctx.arc(x, y, radius, 0, Math.PI * 2)
+        ctx.fill()
+      }
+    }
+    
+    // Major island chains
+    addIslands(2300, 800, 30, 300) // Indonesia/Southeast Asia
+    addIslands(550, 500, 20, 150) // Caribbean
+    addIslands(1050, 420, 15, 100) // Mediterranean islands
+    addIslands(3200, 1000, 25, 400) // Pacific islands
+    addIslands(1200, 200, 10, 80) // British Isles
+    addIslands(2800, 600, 15, 100) // Japan
+    
+    // Add realistic cloud cover
+    ctx.globalAlpha = 0.25
+    ctx.fillStyle = '#FFFFFF'
+    
+    // Weather patterns and cloud formations
+    for (let i = 0; i < 80; i++) {
+      const x = Math.random() * 4096
+      const y = Math.random() * 2048
+      const width = Math.random() * 200 + 100
+      const height = Math.random() * 80 + 40
+      const rotation = Math.random() * Math.PI * 2
+      
+      ctx.save()
+      ctx.translate(x, y)
+      ctx.rotate(rotation)
+      ctx.beginPath()
+      ctx.ellipse(0, 0, width, height, 0, 0, Math.PI * 2)
+      ctx.fill()
+      ctx.restore()
+    }
+    
+    // Polar ice caps with more opacity
+    ctx.globalAlpha = 0.4
+    ctx.fillStyle = '#FFFFFF'
+    
+    // Arctic ice cap
+    ctx.beginPath()
+    ctx.arc(2048, 100, 300, 0, Math.PI * 2)
+    ctx.fill()
+    
+    // Antarctic ice (already drawn as continent, add ice effect)
+    ctx.fillRect(0, 1600, 4096, 448)
+    
     ctx.globalAlpha = 1.0
     
     const texture = new THREE.CanvasTexture(canvas)
     texture.wrapS = THREE.RepeatWrapping
     texture.wrapT = THREE.ClampToEdgeWrapping
+    texture.generateMipmaps = false
+    texture.minFilter = THREE.LinearFilter
+    texture.magFilter = THREE.LinearFilter
     return texture
   }, [])
   
@@ -281,12 +407,13 @@ const EarthGlobe = ({ selectedDestination, onDestinationClick, highlightFilter }
     <group>
       {/* Main Earth Sphere */}
       <mesh ref={globeRef}>
-        <sphereGeometry args={[2, 64, 64]} />
+        <sphereGeometry args={[2, 128, 128]} />
         <meshStandardMaterial
           map={earthTexture}
-          roughness={0.9}
+          roughness={0.95}
           metalness={0.0}
-          bumpScale={0.02}
+          bumpMap={earthTexture}
+          bumpScale={0.05}
         />
       </mesh>
       
