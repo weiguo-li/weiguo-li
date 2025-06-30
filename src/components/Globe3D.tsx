@@ -144,35 +144,120 @@ const EarthGlobe = ({ selectedDestination, onDestinationClick, highlightFilter }
   const globeRef = useRef<THREE.Mesh>(null)
   const atmosphereRef = useRef<THREE.Mesh>(null)
   
-  // Create Earth texture
+  // Create realistic Earth texture
   const earthTexture = useMemo(() => {
     const canvas = document.createElement('canvas')
-    canvas.width = 1024
-    canvas.height = 512
+    canvas.width = 2048
+    canvas.height = 1024
     const ctx = canvas.getContext('2d')!
     
-    // Create a simple Earth-like texture
-    const gradient = ctx.createLinearGradient(0, 0, 0, 512)
-    gradient.addColorStop(0, '#87CEEB') // Sky blue for oceans
-    gradient.addColorStop(0.3, '#4682B4') // Steel blue
-    gradient.addColorStop(0.7, '#228B22') // Forest green for land
-    gradient.addColorStop(1, '#8B4513') // Saddle brown
+    // Ocean background
+    ctx.fillStyle = '#1e40af' // Deep blue for oceans
+    ctx.fillRect(0, 0, 2048, 1024)
     
-    ctx.fillStyle = gradient
-    ctx.fillRect(0, 0, 1024, 512)
+    // Add oceanic depth variation
+    const oceanGradient = ctx.createRadialGradient(1024, 512, 100, 1024, 512, 800)
+    oceanGradient.addColorStop(0, '#3b82f6')
+    oceanGradient.addColorStop(1, '#1e3a8a')
+    ctx.fillStyle = oceanGradient
+    ctx.fillRect(0, 0, 2048, 1024)
     
-    // Add some continent-like shapes
-    ctx.fillStyle = '#228B22'
-    for (let i = 0; i < 20; i++) {
-      const x = Math.random() * 1024
-      const y = Math.random() * 512
-      const radius = Math.random() * 100 + 20
+    // Continental masses with realistic positioning
+    const continents = [
+      // North America
+      { x: 300, y: 300, width: 400, height: 300, color: '#22c55e' },
+      // South America  
+      { x: 400, y: 600, width: 200, height: 350, color: '#16a34a' },
+      // Europe
+      { x: 900, y: 200, width: 200, height: 150, color: '#15803d' },
+      // Africa
+      { x: 950, y: 350, width: 250, height: 400, color: '#dcfce7' },
+      // Asia
+      { x: 1100, y: 150, width: 600, height: 400, color: '#22c55e' },
+      // Australia
+      { x: 1500, y: 700, width: 300, height: 150, color: '#16a34a' },
+      // Antarctica
+      { x: 200, y: 900, width: 1600, height: 100, color: '#f0f9ff' }
+    ]
+    
+    continents.forEach(continent => {
+      // Create organic continent shapes
+      ctx.fillStyle = continent.color
       ctx.beginPath()
-      ctx.arc(x, y, radius, 0, Math.PI * 2)
+      
+      // Create irregular continent boundaries
+      const points = 20
+      for (let i = 0; i <= points; i++) {
+        const angle = (i / points) * Math.PI * 2
+        const radiusX = continent.width / 2 * (0.7 + Math.random() * 0.6)
+        const radiusY = continent.height / 2 * (0.7 + Math.random() * 0.6)
+        const x = continent.x + continent.width / 2 + Math.cos(angle) * radiusX
+        const y = continent.y + continent.height / 2 + Math.sin(angle) * radiusY
+        
+        if (i === 0) {
+          ctx.moveTo(x, y)
+        } else {
+          ctx.lineTo(x, y)
+        }
+      }
+      ctx.closePath()
+      ctx.fill()
+      
+      // Add mountain ranges and terrain variation
+      ctx.fillStyle = '#166534' // Darker green for mountains
+      for (let j = 0; j < 15; j++) {
+        const mx = continent.x + Math.random() * continent.width
+        const my = continent.y + Math.random() * continent.height
+        const mradius = Math.random() * 30 + 10
+        ctx.beginPath()
+        ctx.arc(mx, my, mradius, 0, Math.PI * 2)
+        ctx.fill()
+      }
+    })
+    
+    // Add island chains and archipelagos
+    const islands = [
+      // Caribbean
+      { x: 500, y: 450, count: 15 },
+      // Mediterranean
+      { x: 950, y: 350, count: 10 },
+      // Pacific Islands
+      { x: 1800, y: 500, count: 25 },
+      // Indonesia
+      { x: 1400, y: 550, count: 20 }
+    ]
+    
+    islands.forEach(group => {
+      ctx.fillStyle = '#22c55e'
+      for (let i = 0; i < group.count; i++) {
+        const ix = group.x + (Math.random() - 0.5) * 200
+        const iy = group.y + (Math.random() - 0.5) * 100
+        const iradius = Math.random() * 8 + 3
+        ctx.beginPath()
+        ctx.arc(ix, iy, iradius, 0, Math.PI * 2)
+        ctx.fill()
+      }
+    })
+    
+    // Add cloud formations
+    ctx.globalAlpha = 0.3
+    ctx.fillStyle = '#ffffff'
+    for (let i = 0; i < 50; i++) {
+      const cx = Math.random() * 2048
+      const cy = Math.random() * 1024
+      const cwidth = Math.random() * 150 + 50
+      const cheight = Math.random() * 80 + 30
+      
+      ctx.beginPath()
+      ctx.ellipse(cx, cy, cwidth, cheight, Math.random() * Math.PI * 2, 0, Math.PI * 2)
       ctx.fill()
     }
+    ctx.globalAlpha = 1.0
     
-    return new THREE.CanvasTexture(canvas)
+    const texture = new THREE.CanvasTexture(canvas)
+    texture.wrapS = THREE.RepeatWrapping
+    texture.wrapT = THREE.ClampToEdgeWrapping
+    return texture
   }, [])
   
   // Slow rotation animation
@@ -199,8 +284,9 @@ const EarthGlobe = ({ selectedDestination, onDestinationClick, highlightFilter }
         <sphereGeometry args={[2, 64, 64]} />
         <meshStandardMaterial
           map={earthTexture}
-          roughness={0.8}
-          metalness={0.1}
+          roughness={0.9}
+          metalness={0.0}
+          bumpScale={0.02}
         />
       </mesh>
       
@@ -308,9 +394,10 @@ const Globe3D = ({ selectedDestination, onDestinationClick, highlightFilter }: a
         gl={{ antialias: true, alpha: true }}
       >
         {/* Lighting */}
-        <ambientLight intensity={0.4} />
-        <directionalLight position={[5, 5, 5]} intensity={0.8} />
-        <pointLight position={[-5, -5, -5]} intensity={0.3} color="#4444ff" />
+        <ambientLight intensity={0.6} />
+        <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
+        <pointLight position={[-5, -5, -5]} intensity={0.4} color="#4444ff" />
+        <hemisphereLight skyColor="#87ceeb" groundColor="#654321" intensity={0.3} />
         
         {/* Stars background */}
         <Stars />
