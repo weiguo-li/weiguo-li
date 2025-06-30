@@ -39,8 +39,8 @@ function App() {
         <Hero />
         <About />
         <Skills />
-        <Portfolio />
-        <Travel />
+        {/* <Portfolio /> */}
+        {/* <Travel /> */}
         <Blog />
         <Contact />
       </motion.div>

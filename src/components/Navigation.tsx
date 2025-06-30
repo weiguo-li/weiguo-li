@@ -11,7 +11,7 @@ const Navigation = () => {
       setScrolled(isScrolled)
 
       // Update active section based on scroll position
-      const sections = ['hero', 'about', 'skills', 'portfolio', 'travel', 'blog', 'contact']
+      const sections = ['hero', 'about', 'skills', 'blog', 'contact']
       const current = sections.find(section => {
         const element = document.getElementById(section)
         if (element) {
