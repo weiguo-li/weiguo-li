@@ -524,7 +524,7 @@ const Globe3D = ({ selectedDestination, onDestinationClick, highlightFilter }: a
         <ambientLight intensity={0.6} />
         <directionalLight position={[5, 5, 5]} intensity={1.2} castShadow />
         <pointLight position={[-5, -5, -5]} intensity={0.4} color="#4444ff" />
-        <hemisphereLight skyColor="#87ceeb" groundColor="#654321" intensity={0.3} />
+        <hemisphereLight color="#87ceeb" groundColor="#654321" intensity={0.3} />
         
         {/* Stars background */}
         <Stars />
