@@ -90,7 +90,7 @@ const Skills = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/images/tech/tech-bg.jpg')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('${import.meta.env.BASE_URL}images/tech/tech-bg.jpg')`
         }}
       />
 

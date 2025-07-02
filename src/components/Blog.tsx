@@ -18,7 +18,7 @@ const Blog = () => {
       category: 'development',
       readTime: 8,
       date: '2024-01-15',
-      image: '/images/backgrounds/coding-bg.jpg',
+      image: import.meta.env.BASE_URL + 'images/backgrounds/coding-bg.jpg',
       tags: ['React', 'JavaScript', 'Architecture']
     },
     {
@@ -28,7 +28,7 @@ const Blog = () => {
       category: 'travel',
       readTime: 6,
       date: '2024-01-10',
-      image: '/images/travel/travel-pins.jpg',
+      image: import.meta.env.BASE_URL + 'images/travel/travel-pins.jpg',
       tags: ['Travel', 'Remote Work', 'Lifestyle']
     },
     {
@@ -38,7 +38,7 @@ const Blog = () => {
       category: 'technology',
       readTime: 5,
       date: '2024-01-05',
-      image: '/images/tech/tech-bg.jpg',
+      image: import.meta.env.BASE_URL + 'images/tech/tech-bg.jpg',
       tags: ['Technology', 'Trends', 'Future']
     },
     {
@@ -48,7 +48,7 @@ const Blog = () => {
       category: 'design',
       readTime: 7,
       date: '2023-12-28',
-      image: '/images/backgrounds/workspace.jpg',
+      image: import.meta.env.BASE_URL + 'images/backgrounds/workspace.jpg',
       tags: ['CSS', 'Design', 'Layout']
     },
     {
@@ -58,7 +58,7 @@ const Blog = () => {
       category: 'lifestyle',
       readTime: 4,
       date: '2023-12-20',
-      image: '/images/backgrounds/workspace.jpg',
+      image: import.meta.env.BASE_URL + 'images/backgrounds/workspace.jpg',
       tags: ['Productivity', 'Remote Work', 'Tips']
     },
     {
@@ -68,7 +68,7 @@ const Blog = () => {
       category: 'devops',
       readTime: 10,
       date: '2023-12-15',
-      image: '/images/tech/tech-bg.jpg',
+      image: import.meta.env.BASE_URL + 'images/tech/tech-bg.jpg',
       tags: ['Docker', 'DevOps', 'Deployment']
     }
   ]

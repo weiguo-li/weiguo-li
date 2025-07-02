@@ -55,7 +55,7 @@ const Travel = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('/images/backgrounds/stars-bg.jpg')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('${import.meta.env.BASE_URL}images/backgrounds/stars-bg.jpg')`
         }}
       />
 

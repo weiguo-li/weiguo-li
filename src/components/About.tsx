@@ -73,7 +73,7 @@ const About = () => {
                 transition={{ duration: 0.3 }}
               >
                 <img
-                  src="/images/portraits/myself.jpeg"
+                  src={import.meta.env.BASE_URL + 'images/portraits/myself.jpeg'}
                   alt="Weiguo Li"
                   className="w-full h-full object-cover rounded-2xl shadow-2xl"
                 />

@@ -99,7 +99,7 @@ const Contact = () => {
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ 
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('/images/backgrounds/workspace.jpg')`
+          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('${import.meta.env.BASE_URL}images/backgrounds/workspace.jpg')`
         }}
       />
 
