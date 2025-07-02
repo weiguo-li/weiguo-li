@@ -17,6 +17,6 @@ export default defineConfig({
       '.replit.dev'
     ]
   }, 
-  base: '/weiguo-personal-website/'
+  base: '/weiguo-personal-website/',
 })
 

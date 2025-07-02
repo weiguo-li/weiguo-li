@@ -39,7 +39,7 @@ function App() {
         <Hero />
         <About />
         <Skills />
-        <Portfolio />
+        {/* <Portfolio /> */}
         {/* <Travel /> */}
         <Blog />
         <Contact />
